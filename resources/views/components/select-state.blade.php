@@ -1,0 +1,29 @@
+<flux:select wire:model.live="{{ $model }}" placeholder="Selecione um estado" :label="__('Estado')">
+    <flux:select.option value="AC">Acre</flux:select.option>
+    <flux:select.option value="AL">Alagoas</flux:select.option>
+    <flux:select.option value="AP">Amapá</flux:select.option>
+    <flux:select.option value="AM">Amazonas</flux:select.option>
+    <flux:select.option value="BA">Bahia</flux:select.option>
+    <flux:select.option value="CE">Ceará</flux:select.option>
+    <flux:select.option value="DF">Distrito Federal</flux:select.option>
+    <flux:select.option value="ES">Espírito Santo</flux:select.option>
+    <flux:select.option value="GO">Goiás</flux:select.option>
+    <flux:select.option value="MA">Maranhão</flux:select.option>
+    <flux:select.option value="MT">Mato Grosso</flux:select.option>
+    <flux:select.option value="MS">Mato Grosso do Sul</flux:select.option>
+    <flux:select.option value="MG">Minas Gerais</flux:select.option>
+    <flux:select.option value="PA">Pará</flux:select.option>
+    <flux:select.option value="PB">Paraíba</flux:select.option>
+    <flux:select.option value="PR">Paraná</flux:select.option>
+    <flux:select.option value="PE">Pernambuco</flux:select.option>
+    <flux:select.option value="PI">Piauí</flux:select.option>
+    <flux:select.option value="RJ">Rio de Janeiro</flux:select.option>
+    <flux:select.option value="RN">Rio Grande do Norte</flux:select.option>
+    <flux:select.option value="RS">Rio Grande do Sul</flux:select.option>
+    <flux:select.option value="RO">Rondônia</flux:select.option>
+    <flux:select.option value="RR">Roraima</flux:select.option>
+    <flux:select.option value="SC">Santa Catarina</flux:select.option>
+    <flux:select.option value="SP">São Paulo</flux:select.option>
+    <flux:select.option value="SE">Sergipe</flux:select.option>
+    <flux:select.option value="TO">Tocantins</flux:select.option>
+</flux:select>

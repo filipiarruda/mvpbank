@@ -9,38 +9,70 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use App\Http\Controllers\Auth\RegisterController;
 
 #[Layout('components.layouts.auth')]
 class Register extends Component
 {
-    public string $name = '';
-
+    public string $name = ''; // 🔹 Adicionando um valor padrão vazio
     public string $email = '';
-
     public string $password = '';
-
     public string $password_confirmation = '';
-
     public string $type = '';
+    public string $cpf = '';
+    public string $mobile_phone = '';
 
     /**
      * Handle an incoming registration request.
      */
     public function register(): void
     {
-        $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-            'type' => ['required', 'string', 'in:people,company'],
+        // // 🔹 Testar para ver se o nome está chegando corretamente
+
+        // $validated = $this->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+        //     'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+        //     'type' => ['required', 'string', 'in:people,company'],
+        // ]);
+
+        // $validated['password'] = Hash::make($validated['password']);
+
+        // event(new Registered(($user = User::create($validated))));
+
+        $user = app(RegisterController::class)->register([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => $this->password,
+            'password_confirmation' => $this->password_confirmation,
+            'type' => $this->type,
+            'cpf' => $this->cpf,
+            'cnpj' => $this->cnpj,
+            'mobile_phone' => $this->mobile_phone,
+            'birthdate' => $this->birthdate,
         ]);
-
-        $validated['password'] = Hash::make($validated['password']);
-
-        event(new Registered(($user = User::create($validated))));
+        event(new Registered($user));
 
         Auth::login($user);
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
+    }
+
+    public function updatedType($value)
+    {
+        if ($value === 'people') {
+            $this->cpf = '';
+            $this->phone = '';
+        } elseif ($value === 'company') {
+            $this->cpf = '';
+            $this->phone = '';
+        }
+    }
+
+
+
+    public function render()
+    {
+        return view('livewire.auth.register');
     }
 }
