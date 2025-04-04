@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->enum('type', ['individual', 'bussiness'])->default('individual');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('mobile_phone');
+            $table->date('birthdate')->nullable();
+            $table->string('cpf')->nullable()->unique();
+            $table->string('cnpj')->nullable()->unique();
+            $table->string('account_number')->unique();
+            $table->string('agency_number')->unique();
             $table->timestamps();
         });
     }

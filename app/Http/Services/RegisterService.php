@@ -28,14 +28,26 @@ class RegisterService
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             'type' => ['required', 'in:individual,bussiness'],
-            'address' => ['nullable', 'required_if:type,people' 'string'],
-            'cpf' => ['nullable', 'required_if:type,people', 'string'],
-            'phone' => ['nullable', 'required_if:type,people', 'string'],
+            'cpf' => ['nullable', 'required_if:type,individual', 'string'],
+            'cnpj' => ['nullable', 'required_if:type,bussiness', 'string'],
+            'mobile_phone' => ['nullable', 'required', 'string'],
+            'birthdate' => ['nullable', 'required_if:type,individual', 'date'],
         ]);
 
         $data['password'] = Hash::make($data['password']);
 
         $user = $this->userRepository->create($data);
+
+        $account = $this->accountRepository->create([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'type' => $data['type'],
+            'cpf' => $data['cpf'],
+            'cnpj' => $data['cnpj'],
+            'mobile_phone' => $data['mobile_phone'],
+            'birthdate' => $data['birthdate'],
+        ]);
 
         return $user;
     }

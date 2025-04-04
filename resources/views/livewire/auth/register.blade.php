@@ -53,10 +53,10 @@
         </flux:select>
 
         <flux:input wire:model="mobile_phone" label="Telefone" type="text" placeholder="(99) 99999-9999" required />
-        <flux:input wire:model="birthdate" label="Data de Nascimento" type="date" required />
         <!-- Campos dinâmicos -->
         @if ($type === 'individual')
             <flux:input wire:model="cpf" label="CPF" type="text" placeholder="000.000.000-00" required />
+            <flux:input wire:model="birthdate" label="Data de Nascimento" type="date" required />
         @elseif ($type === 'bussiness')
             <flux:input wire:model="cnpj" label="CNPJ" type="text" placeholder="00.000.000/0000-00" required />
         @endif

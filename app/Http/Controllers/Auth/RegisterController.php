@@ -19,7 +19,7 @@ class RegisterController extends Controller
     {
         try {
             $user = $this->registerService->register($request->all());
-            return response()->json(['message' => 'Usuário cadastrado com sucesso!', 'user' => $user], 201);
+            return $user;
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         }
