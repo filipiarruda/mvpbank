@@ -60,13 +60,8 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    public function people()
+    public function account (): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(People::class);
-    }
-
-    public function company()
-    {
-        return $this->hasOne(Company::class);
+        return $this->hasOne(Account::class);
     }
 }

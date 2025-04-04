@@ -8,22 +8,25 @@ use App\Models\Company;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use App\Repositories\AccountRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
 
 class RegisterService
 {
     protected $userRepository;
+    protected $accountRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, AccountRepository $accountRepository)
     {
         $this->userRepository = $userRepository;
+        $this->accountRepository = $accountRepository;
     }
 
     public function register(array $data)
     {
 
-        $validate = validator($data, [
+        $validated = validator($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
@@ -38,7 +41,7 @@ class RegisterService
 
         $user = $this->userRepository->create($data);
 
-        $account = $this->accountRepository->create([
+        $this->accountRepository->create([
             'user_id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,

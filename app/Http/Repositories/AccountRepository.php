@@ -2,7 +2,13 @@
 
 namespace App\Http\Repositories;
 
-class AccountRepository 
+use App\Models\Account;
+class AccountRepository
 {
-    // Implementação do repository
+
+    public function create (array $data)
+    {
+        return Account::create($data);
+    }
+
 }

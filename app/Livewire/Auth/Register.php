@@ -20,7 +20,9 @@ class Register extends Component
     public string $password_confirmation = '';
     public string $type = '';
     public string $cpf = '';
+    public string $cnpj = '';
     public string $mobile_phone = '';
+    public string $birthdate = '';
 
     /**
      * Handle an incoming registration request.
@@ -40,7 +42,7 @@ class Register extends Component
 
         // event(new Registered(($user = User::create($validated))));
 
-        $user = app(RegisterController::class)->register([
+        $request = new \Illuminate\Http\Request([
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
@@ -51,6 +53,8 @@ class Register extends Component
             'mobile_phone' => $this->mobile_phone,
             'birthdate' => $this->birthdate,
         ]);
+
+        $user = app(RegisterController::class)->register($request);
         event(new Registered($user));
 
         Auth::login($user);
