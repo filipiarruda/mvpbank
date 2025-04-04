@@ -13,7 +13,7 @@ class MakeRepository extends Command
     public function handle()
     {
         $name = $this->argument('name');
-        $path = app_path("Http/Repositories/{$name}.php");
+        $path = app_path("Repositories/{$name}.php");
 
         if (file_exists($path)) {
             $this->error('Esse repository já existe!');
@@ -22,7 +22,7 @@ class MakeRepository extends Command
 
         (new Filesystem)->ensureDirectoryExists(dirname($path));
 
-        file_put_contents($path, "<?php\n\nnamespace App\Http\Repositories;\n\nclass {$name} \n{\n    // Implementação do repository\n}");
+        file_put_contents($path, "<?php\n\nnamespace App\Repositories;\n\nclass {$name} \n{\n    // Implementação do repository\n}");
 
         $this->info("Repository {$name} criado com sucesso!");
     }
